@@ -1,0 +1,54 @@
+*&---------------------------------------------------------------------*
+*& Report ZS4CONV_0200
+*&---------------------------------------------------------------------*
+*& 2025.01.24 - 김연범
+** 용도 : ECC서버와 HANA 서버 CTS 비교( 중복 프로그램 )
+** 서버를 이관 시킬때 운영서버와 컨버전 개발 CTS를 통합할 때 주로 사용 됨
+** 대상 프로그램 : LIMU - FUNC REPS WAPP METH
+**               : R3TR - PROG FUGR
+**************개발 참고사항************8
+** 클래스를 받아와야 할 때 먼저 앞쪽을 잘라 패키지를 찾아간다.
+** FUGR인 함수그룹으로만 CTS를 이관 했을 경우 함수 안에 있는
+** 모듈을 전부 가져와서 비교해야 됨
+***************************************8
+*&---------------------------------------------------------------------*
+REPORT ZS4CONV_0200 MESSAGE-ID **.
+
+INCLUDE zs4conv_0200top.
+INCLUDE zs4conv_0200cls.
+INCLUDE zs4conv_0200scr.
+INCLUDE zs4conv_0200f01.
+INCLUDE zs4conv_0200f02.
+INCLUDE zs4conv_0200i01.
+INCLUDE zs4conv_0200o01.
+
+INITIALIZATION.
+
+PERFORM initialization.
+
+AT SELECTION-SCREEN OUTPUT.
+
+PERFORM pbo.
+
+AT SELECTION-SCREEN.
+
+  PERFORM set_fkey CHANGING gv_subrc.
+
+START-OF-SELECTION.
+
+  CLEAR gv_subrc.
+  PERFORM get_data CHANGING gv_subrc.
+
+  CASE gv_subrc.
+    WHEN 0.
+      PERFORM set_data.
+      IF gv_lines IS INITIAL.
+        MESSAGE s005 DISPLAY LIKE 'W'. "일치하는 데이터 없음
+        ELSE.
+          CALL SCREEN 0100.
+      ENDIF.
+     WHEN OTHERS.
+       MESSAGE s003 DISPLAY LIKE 'E'.
+       LEAVE LIST-PROCESSING.
+      ENDIF.
+  ENDCASE.

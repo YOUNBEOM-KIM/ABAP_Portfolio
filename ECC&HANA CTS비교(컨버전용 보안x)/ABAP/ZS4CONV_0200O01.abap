@@ -1,22 +1,34 @@
 *&---------------------------------------------------------------------*
-*& Module Pool      ZEA_MM060
+*& Include          ZS4CONV_0200O01
 *&---------------------------------------------------------------------*
-*& [MM] 구매요청 생성/조회 프로그램 - ACA5-10 김혜진
 *&---------------------------------------------------------------------*
-
+*& Form pbo
 *&---------------------------------------------------------------------*
-*& Global Variable
+FORM pbo .
+  LOOP AT SCREEN.
+    IF screen-name EQ 'SO_DEF-LOW'
+    OR screen-name EQ 'SO_DEF-HIGH'.
+      screen-input = 0.
+      MODIFY SCREEN.
+    ENDIF.
+  ENDLOOP.
+ENDFORM.
 *&---------------------------------------------------------------------*
-INCLUDE SAPMZEA_MM060_T01.
+*& Module STATUS_0200 OUTPUT
 *&---------------------------------------------------------------------*
-*& PBO-Modules
+MODULE status_0200 OUTPUT.
+ SET PF-STATUS 'S0200'.
+ENDMODULE.
 *&---------------------------------------------------------------------*
-INCLUDE SAPMZEA_MM060_PBO.
+*& Module STATUS_0100 OUTPUT
 *&---------------------------------------------------------------------*
-*& PAI-Modules
+MODULE status_0100 OUTPUT.
+ SET PF-STATUS 'S0100'.
+ SET TITLEBAR  'T0100'.
+ENDMODULE.
 *&---------------------------------------------------------------------*
-INCLUDE SAPMZEA_MM060_PAI.
+*& Module CREATE_ALV_0100 OUTPUT
 *&---------------------------------------------------------------------*
-*& FORM-Routines
-*&---------------------------------------------------------------------*
-INCLUDE SAPMZEA_MM060_F01.
+MODULE create_alv_0100 OUTPUT.
+  PERFORM create_alv.
+ENDMODULE.

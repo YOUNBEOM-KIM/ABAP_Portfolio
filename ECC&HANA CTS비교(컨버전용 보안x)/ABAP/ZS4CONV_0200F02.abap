@@ -57,7 +57,7 @@ ENDFORM.
 *&---------------------------------------------------------------------*
 *& Form get_fieldcat
 *&---------------------------------------------------------------------*
-FORM get_fieldcat USING gt_alv TYPE STANDARD TABLE
+FORM get_fieldcat USING    gt_alv  TYPE STANDARD TABLE
                   CHANGING pt_fcat TYPE lvc_t_fcat.
 
   pt_fcat = CORRESPONDING #( cl_salv_ddic=>get_by_dat( pt_alv )
@@ -72,7 +72,7 @@ FORM make_fieldcat CHANGING pt_fcat TYPE lvc_t_fcat.
   LOOP AT pt_fcat INTO DATA(ps_fcat).
     CASE ps_fcat-fieldname.
       WHEN 'DEPER'.
-        ps_fcat-coltext = '�대떦��'.
+        ps_fcat-coltext = '담당자'.
         PS_fcat-key     = 'X'.
     ENDCASE.
     MODIFY pt_fcat FROM ps-fcat.
@@ -92,7 +92,7 @@ ENDFORM.
 *&---------------------------------------------------------------------*
 *& Form event_toolbar
 *&---------------------------------------------------------------------*
-FORM event_toolbar USING p_object TYPE REF TO cl_alv_event_toolbar_set
+FORM event_toolbar USING p_object      TYPE REF TO cl_alv_event_toolbar_set
                          p_interactive.
 
   DATA : ls_toolbar TYPE stb_button
@@ -110,7 +110,7 @@ ENDFORM.
 *& Form event_user_command
 *&---------------------------------------------------------------------*
 FORM event_user_command USING p_ucomm TYPE sy-ucomm.
-    " **************蹂댁븞****************
+    " **************보안****************
 ENDFORM.
 *&---------------------------------------------------------------------*
 *& Form event_double_click
@@ -118,5 +118,5 @@ ENDFORM.
 FORM event_double_click USING p_row
                               p_column
                               ps_row_no.
-    " **************蹂댁븞****************
+    " **************보안****************
 ENDFORM.
