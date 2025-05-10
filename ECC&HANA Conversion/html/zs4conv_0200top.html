@@ -1,0 +1,264 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=KSC5601" />
+<title>ZS4CONV_0200TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZS4CONV_0200TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZS4CONV_0200TOP<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+*--------------------------------------------------------------------*<br />
+*&nbsp;CONSTANTS<br />
+*--------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+CONSTANTS : gc_con1 TYPE char20 VALUE 'CCON1'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;gc_dia1&nbsp;TYPE&nbsp;char20&nbsp;VALUE&nbsp;'DIALOG1'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;gc_s&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'S'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;gc_x&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;'X'.<br />
+<br />
+CONSTANTS : gc_idx_func TYPE i VALUE 0<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;gc_idx_reps&nbsp;TYPE&nbsp;i&nbsp;VALUE&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;gc_idx_wapp&nbsp;TYPE&nbsp;i&nbsp;VALUE&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;gc_idx_meth&nbsp;TYPE&nbsp;i&nbsp;VALUE&nbsp;3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;gc_idx_prog&nbsp;TYPE&nbsp;i&nbsp;VALUE&nbsp;4<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;gc_idx_fugr&nbsp;TYPE&nbsp;i&nbsp;VALUE&nbsp;5.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--------------------------------------------------------------------*<br />
+*&nbsp;TABLES<br />
+*--------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TABLES : e070, e071, e07t, tadir, enlfdir, sscrfields.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--------------------------------------------------------------------*<br />
+*&nbsp;TYPES<br />
+*--------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+TYPES : BEGIN OF gty_s_result_data<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;deper(10)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;c<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;devclass_ecc&nbsp;&nbsp;TYPE&nbsp;tadir-devclass<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;pgmid_hana&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;e071-pgmid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;object_hana&nbsp;&nbsp;&nbsp;TYPE&nbsp;e071-object<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;obj_name_hana&nbsp;TYPE&nbsp;e071-obj_name<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;trkorr_ecc&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;e071-trkorr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;as4text_ecc&nbsp;&nbsp;&nbsp;TYPE&nbsp;e07t-as4text<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;as4user_ecc&nbsp;&nbsp;&nbsp;TYPE&nbsp;e070-as4user<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;as4date_ecc&nbsp;&nbsp;&nbsp;TYPE&nbsp;e070-as4date<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;as4time_ecc&nbsp;&nbsp;&nbsp;TYPE&nbsp;e070-as4time<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;trkorr_hana&nbsp;&nbsp;&nbsp;TYPE&nbsp;e071-trkorr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;as4text_hana&nbsp;&nbsp;TYPE&nbsp;e07t-as4text<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;as4user_hana&nbsp;&nbsp;TYPE&nbsp;e070-as4user<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;as4date_hana&nbsp;&nbsp;TYPE&nbsp;e070-as4date<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;as4time_hana&nbsp;&nbsp;TYPE&nbsp;e070-as4time<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;END&nbsp;OF&nbsp;gty_s_result_data.<br />
+<br />
+TYPES : BEGIN OF gty_s_data<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;devclass&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;tadir-devclass<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;trkorr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;e071-trkorr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;as4text&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;e07t-as4text<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;pgmid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;e071-pgmid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;object&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;e071-object<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;obj_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;e071-obj_name<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;funcgroup&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;tadir-obj_name<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;as4user&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;e070-as4user<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;as4date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;e070-as4date<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;as4time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;e070-as4time<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;END&nbsp;OF&nbsp;gty_s_data.<br />
+<br />
+TYPES : BEGIN OF gty_s_alv_foot<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;scol&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;lvc_t_scol<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;styl&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;lvc_t_styl<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;mode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;c<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;END&nbsp;OF&nbsp;gty_s_alv_foot.<br />
+<br />
+TYPES : BEGIN OF gty_s_obj<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;low&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;e071-obj_name<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;obj_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;tadir-obj_name<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;END&nbsp;OF&nbsp;gty_s_obj.<br />
+<br />
+TYPES : BEGIN OF gty_s_itab<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;obj_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;e071-obj_name<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;devclass&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;tadir-devclass<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;deper(10)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;c<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;END&nbsp;OF&nbsp;gty_s_itab.<br />
+<br />
+TYPES : BEGIN OF gty_s_devclass<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;devclass&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;tadir-devclass<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;developer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;pa0001-ename<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;END&nbsp;OF&nbsp;gty_s_devclass.<br />
+<br />
+TYPES : BEGIN OF gty_s_dialog<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;log_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zs4_req_cts-log_name<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;log_date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zs4_req_cts-log_date<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;log_time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zs4_req_cts-log_time<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;log_system&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zs4_req_cts-log_system<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;log_tkrorr&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zs4_req_cts-log_trkorr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;END&nbsp;OF&nbsp;gty_s_dialog.<br />
+<br />
+TYPES : BEGIN OF gty_s_dialog_group<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;log_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zs4_req_cts-log_name<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;log_date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zs4_req_cts-log_date<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;log_time&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zs4_req_cts-log_time<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;END&nbsp;OF&nbsp;gty_s_dialog_group.<br />
+<br />
+TYPES : BEGIN OF  gty_s_chk<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;funcname&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;enlfdir-funcname<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;END&nbsp;OF&nbsp;gty_s_chk.<br />
+<br />
+TYPES : BEGIN OF gty_s_sub<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;sub_object&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;e071-object<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;sub_obj_name&nbsp;&nbsp;TYPE&nbsp;e071-obj_name<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;END&nbsp;OF&nbsp;gty_s_sub.<br />
+<br />
+TYPES : BEGIN OF gty_s_dev<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;object&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;e071-object<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;obj_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;e071-obj_name<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;devclass&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;tadir-devclass<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;END&nbsp;OF&nbsp;gty_s_dev.<br />
+<br />
+TYPES : BEGIN OF gty_s_result.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INCLUDE&nbsp;TYPE&nbsp;gty_s_result_data.<br />
+TYPES : END OF gty_s_result.<br />
+<br />
+TYPES : BEGIN OF gty_s_version.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INCLUDE&nbsp;TYPE&nbsp;gty_s_data.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INCLUDE&nbsp;TYPE&nbsp;gty_s_alv_foot.<br />
+TYPES : END OF gty_s_version.<br />
+<br />
+TYPES : BEGIN OF gty_s_fugr.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INCLUDE&nbsp;TYPE&nbsp;gty_s_data.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INCLUDE&nbsp;TYPE&nbsp;gty_s_sub.<br />
+TYPES : END OF gty_s_fugr.<br />
+<br />
+TYPES : BEGIN OF gty_s_enlfdir.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INCLUDE&nbsp;TYPE&nbsp;gty_s_data.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INCLUDE&nbsp;TYPE&nbsp;gty_s_chk.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INCLUDE&nbsp;TYPE&nbsp;gty_s_sub.<br />
+TYPES : END OF gty_s_enlfdir.<br />
+<br />
+TYPES : BEGIN OF gty_s_dev_chk.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INCLUDE&nbsp;TYPE&nbsp;gty_s_dev.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INCLUDE&nbsp;TYPE&nbsp;gty_s_chk.<br />
+TYPES : END OF gty_s_dev_chk.<br />
+<br />
+TYPES : gty_t_version  TYPE TABLE OF gty_s_version  WITH EMPTY KEY.<br />
+TYPES : gty_t_obj      TYPE TABLE OF gty_s_obj      WITH EMPTY KEY.<br />
+TYPES : gty_t_itab     TYPE TABLE OF gty_s_itab.<br />
+TYPES : gty_t_enlfdir  TYPE TABLE OF gty_s_enlfdir  WITH EMPTY KEY.<br />
+TYPES : gty_t_devclass TYPE TABLE OF gty_s_devclass WITH EMPTY KEY.<br />
+TYPES : gty_t_fugr     TYPE TABLE OF gty_s_fugr.<br />
+TYPES : gty_t_result   TYPE TABLE OF gty_s_result   WITH EMPTY KEY.<br />
+TYPES : gty_t_dev_chk  TYPE TABLE OF gty_s_dev_chk.<br />
+TYPES : gty_t_dialog   TYPE TABLE OF gty_s_dialog.<br />
+TYPES : gty_t_gdialog  TYPE STANDARD TABLE OF gty_s_dialog_group<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;NON-UNIQUE&nbsp;KEY&nbsp;log_name<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;log_date<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;log_time.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--------------------------------------------------------------------*<br />
+*&nbsp;GLOBAL&nbsp;DATA<br />
+*--------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+DATA : gt_ecc        TYPE gty_t_version<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;gt_hana&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;gty_t_version<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;gt_result&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;gty_t_result.<br />
+<br />
+DATA : gt_devclass   TYPE gty_t_devclass.<br />
+<br />
+DATA : gv_subrc      TYPE sy-subrc<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;gv_ok_code&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;sy-ucomm<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;gv_ok_save&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;sy-ucomm<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;gv_lines&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;sy-tfill.<br />
+<br />
+DATA : go_container  TYPE REF TO cl_gui_custom_container<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;go_grid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_alv_grid.<br />
+<br />
+DATA : gt_dialog     TYPE gty_t_dialog<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;gt_gdialog&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;gty_t_gdialog.<br />
+<br />
+DATA : go_dialog_con TYPE REF TO cl_gui_custom_container<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;go_dia_grid&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_alv_grid.<br />
+<br />
+DATA : gs_variant    TYPE disvariant<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;gs_layo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;lvc_s_layo<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;gt_fcat&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;lvc_t_fcat<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;gt_sort&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;lvc_t_sort<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;,&nbsp;gt_exclude&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ui_functions.<br />
+<br />
+DATA : gsel_fkey     TYPE smp_dyntxt.<br />
+<br />
+CLASS : gcl_event_receiver DEFINITION DEFERRED.<br />
+DATA : gcl_event_receiver TYPE REF TO gcl_event_receiver.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2025. Sap Release 756</td>
+   </tr>
+</table>
+</body>
+</html>
